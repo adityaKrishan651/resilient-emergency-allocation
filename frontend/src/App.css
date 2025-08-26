@@ -1,0 +1,91 @@
+#root {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.loading, .error {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+}
+
+.loading {
+  color: #007bff;
+}
+
+.error {
+  color: #dc3545;
+  background: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+  margin: 1rem;
+}
+
+.dashboard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  padding: 0 2rem;
+}
+
+.dashboard-column {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 1.5rem;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-column h2 {
+  margin-top: 0;
+  color: #495057;
+  border-bottom: 2px solid #dee2e6;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Scrollable areas for lists */
+.request-list,
+.resource-list {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 50vh;
+  padding-right: 0.5rem;
+}
+
+/* Custom scrollbar */
+.request-list::-webkit-scrollbar,
+.resource-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.request-list::-webkit-scrollbar-track,
+.resource-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.request-list::-webkit-scrollbar-thumb,
+.resource-list::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.request-list::-webkit-scrollbar-thumb:hover,
+.resource-list::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+@media (max-width: 968px) {
+  .dashboard {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+  
+  .dashboard-column {
+    min-height: auto;
+  }
+}

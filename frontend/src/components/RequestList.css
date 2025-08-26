@@ -1,0 +1,77 @@
+.request-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.request-card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.request-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.urgency-badge, .status-badge {
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.urgency-critical { background: #dc3545; color: white; }
+.urgency-high { background: #fd7e14; color: white; }
+.urgency-medium { background: #ffc107; color: black; }
+.urgency-low { background: #28a745; color: white; }
+
+.status-pending { background: #6c757d; color: white; }
+.status-allocated { background: #17a2b8; color: white; }
+.status-en-route { background: #007bff; color: white; }
+.status-resolved { background: #28a745; color: white; }
+
+.request-details h3 {
+  margin: 0 0 0.5rem 0;
+  text-transform: capitalize;
+  color: #333;
+}
+
+.request-details p {
+  margin: 0.25rem 0;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.allocate-btn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  width: 100%;
+}
+
+.allocate-btn:hover {
+  background: #0056b3;
+}
+
+.allocation-info {
+  text-align: center;
+  color: #28a745;
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
+
+.no-data {
+  text-align: center;
+  color: #6c757d;
+  font-style: italic;
+}
