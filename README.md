@@ -48,7 +48,7 @@ flowchart TD
         UI["React 19 Dashboard (Vite)"]
     end
 
-    subgraph Backend ["Backend API & Services (Express / Node.js)"]
+    subgraph Backend ["Backend API and Services"]
         API["REST Controllers"]
         AllocService["Allocation Service"]
         DBTx["Sequelize Transaction (Row Locks)"]
@@ -57,35 +57,35 @@ flowchart TD
         Sync["Background Sync Worker (2-min interval)"]
     end
 
-    subgraph Data ["Data & Storage Layer"]
-        PG[("PostgreSQL + PostGIS\n(ST_Distance Geography)")]
+    subgraph Data ["Data and Storage Layer"]
+        PG[("PostgreSQL and PostGIS")]
     end
 
     subgraph DistributedLedger ["Decentralized Audit Layer"]
         Node["Ethereum / Hardhat EVM Node"]
-        Contract["EmergencyLedger.sol\n(AllocationLogged Event)"]
+        Contract["EmergencyLedger.sol"]
     end
 
     %% Client Interactions
-    UI -->|1. Submit Request / Resource| API
-    UI -->|2. Trigger Dispatch| API
-    UI -->|Polling Refresh (5s)| API
+    UI -->|"1. Submit Request or Resource"| API
+    UI -->|"2. Trigger Dispatch"| API
+    UI -->|"Polling Refresh every 5s"| API
 
     %% Allocation Workflow
     API --> AllocService
-    AllocService -->|Geospatial Query| PG
+    AllocService -->|"Geospatial Query ST_Distance"| PG
     API --> DBTx
-    DBTx -->|Commit State: 'allocated'| PG
+    DBTx -->|"Commit Status: allocated"| PG
 
     %% Blockchain Integration
-    API -->|Async Log Attempt| BCService
-    BCService -->|Emit Event| Contract
-    Contract -.->|Mined On| Node
+    API -->|"Async Log Attempt"| BCService
+    BCService -->|"Emit AllocationLogged Event"| Contract
+    Contract -.->|"Mined on Chain"| Node
 
     %% Fallback Loop
-    BCService -- Network Failure / Error --> Fallback
-    Sync -->|Check Every 2 Min| Fallback
-    Sync -->|Retry Unsynced Allocations| BCService
+    BCService -->|"Network Failure or Offline"| Fallback
+    Sync -->|"Check Every 2 Min"| Fallback
+    Sync -->|"Retry Unsynced Allocations"| BCService
 ```
 
 ### Allocation & Fallback Sequence Flow
@@ -105,7 +105,7 @@ sequenceDiagram
     API->>DB: Lock Request (SELECT FOR UPDATE)
     API->>DB: Query ST_Distance for nearest available resource of type
     DB-->>API: Nearest Resource
-    API->>DB: Commit status = 'allocated' (Request & Resource)
+    API->>DB: Commit status = allocated (Request and Resource)
     DB-->>API: Transaction Committed
 
     alt Blockchain is Online
@@ -119,7 +119,7 @@ sequenceDiagram
         BC-->>API: Error (Timeout / Connection Refused)
         API->>FB: addFailedAllocation(reqId, resId, type, urgency)
         API-->>Dispatcher: 200 OK (Allocated + Pending Retry)
-        loop Background Sync (Every 2 Minutes)
+        loop Background Sync Every 2 Minutes
             SW->>FB: getAllocationsToRetry()
             FB-->>SW: Pending Allocations
             SW->>BC: Retry logAllocation()
